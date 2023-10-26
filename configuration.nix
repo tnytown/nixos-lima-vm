@@ -17,7 +17,7 @@
               title EFI Shell
               efi /shellaa64.efi
             '';
-        }
+        };
     };
     boot.loader.efi.canTouchEfiVariables = true;
     boot.kernelPackages = pkgs.linuxPackages_latest;
