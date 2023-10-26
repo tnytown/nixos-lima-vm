@@ -1,0 +1,1 @@
+[![.github/workflows/build-image.yml](https://github.com/tnytown/nixos-lima-vm/actions/workflows/build-image.yml/badge.svg)](https://github.com/tnytown/nixos-lima-vm/actions/workflows/build-image.yml)
