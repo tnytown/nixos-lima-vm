@@ -15,5 +15,5 @@ jobs:
       - uses: DeterminateSystems/magic-nix-cache-action@main
       - name: Run `nix build`
         run: |
-          nix -L build 'github:patryk4815/ctftools?dir=lima-vm#packages.aarch64-linux.box' --update-input nixpkgs 'nixpkgs/nixos-unstable' --no-write-lock-file
+          nix -L build --update-input nixpkgs 'nixpkgs/nixos-unstable' --no-write-lock-file 'github:patryk4815/ctftools?dir=lima-vm#packages.aarch64-linux.box'
           ls result
