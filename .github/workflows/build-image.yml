@@ -14,6 +14,7 @@ jobs:
         with:
           extra-conf: |
             system = aarch64-linux
+            system-features = nixos-test benchmark big-parallel kvm
       - uses: DeterminateSystems/magic-nix-cache-action@main
       - name: Run `nix build`
         run: |
