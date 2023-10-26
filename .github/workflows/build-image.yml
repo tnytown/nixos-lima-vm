@@ -19,4 +19,7 @@ jobs:
       - name: Run `nix build`
         run: |
           nix -L build --override-input nixpkgs 'nixpkgs/nixos-unstable' 'github:patryk4815/ctftools?dir=lima-vm#packages.aarch64-linux.box'
-          ls result
+      - name: Upload image
+        with:
+          name: result
+          path: result/*
