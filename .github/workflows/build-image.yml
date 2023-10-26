@@ -20,6 +20,7 @@ jobs:
         run: |
           nix -L build --override-input nixpkgs 'nixpkgs/nixos-unstable' 'github:patryk4815/ctftools?dir=lima-vm#packages.aarch64-linux.box'
       - name: Upload image
+        uses: actions/upload-artifact@v3
         with:
           name: result
           path: result/*
