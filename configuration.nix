@@ -5,6 +5,7 @@
     ];
 
     boot.initrd.availableKernelModules = [ "virtiofs" "virtio_pci" "virtio_blk" "virtio_console" "virtio_net" "simplefb" "xhci_pci" "usbhid" ];
+    boot.kernelParams = [ "console=hvc0" ];
     boot.initrd.systemd.enable = true;
     boot.initrd.compressor = "cat";
     boot.loader.systemd-boot = {
@@ -37,7 +38,6 @@
     # /boot is defined in nixos-generators/formats/raw-efi
     fileSystems."/" = {
         device = "/dev/disk/by-label/nixos";
-        autoResize = true;
         fsType = "ext4";
         options = [ "noatime" "nodiratime" "discard" ];
     };
