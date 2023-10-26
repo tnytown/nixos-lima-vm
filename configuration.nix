@@ -22,11 +22,7 @@
     };
 
     # system mounts
-
-    fileSystems."/boot" = {
-        device = "/dev/vda1";  # /dev/disk/by-label/ESP
-        fsType = "vfat";
-    };
+    # /boot is defined in nixos-generators/formats/raw-efi
     fileSystems."/" = {
         device = "/dev/disk/by-label/nixos";
         autoResize = true;
