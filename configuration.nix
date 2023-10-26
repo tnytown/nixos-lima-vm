@@ -23,7 +23,10 @@
     boot.loader.efi.canTouchEfiVariables = true;
     boot.kernelPackages = pkgs.linuxPackages_latest;
 
-    virtualisation.rosetta.enable = true;
+    virtualisation.rosetta = {
+        enable = true;
+        mountTag = "vz-rosetta";
+    };
 
     # ssh
     services.openssh.enable = true;
@@ -49,4 +52,5 @@
     ];
 
     nixpkgs.hostPlatform = "aarch64-linux";
+    system.stateVersion = "23.11";
 }
