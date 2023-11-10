@@ -43,13 +43,6 @@ let
     LIMA_MOUNTPOINTS = envFromContentList "LIMA_CIDATA_MOUNTS_[0-9]+_MOUNTPOINT";
     LIMA_SSH_KEYS = (lib.elemAt (userData . "users") 0) . "ssh-authorized-keys";
 
-    script_mounts = if LIMA_CIDATA_MOUNTTYPE != "9p" then (lib.concatStringsSep "\n" (lib.forEach LIMA_MOUNTPOINTS (mountpoint:
-        ''
-        mkdir -p "${mountpoint}";
-        chown "${toString LIMA_CIDATA_UID}:$gid" "${mountpoint}";
-        ''
-    ))) else "";
-
     fileSystemsMount = (lib.zipAttrsWith (name: values: (lib.elemAt values 0)) (lib.forEach (userData . "mounts") (row:
         {
             ${(lib.elemAt row 1)} = {
@@ -61,12 +54,8 @@ let
     )));
 
     script = ''
-    echo "fix symlink for /bin/bash"
+    echo "add symlink to /bin/bash"
     ln -fs /run/current-system/sw/bin/bash /bin/bash
-
-    echo "make mount points"
-    gid=$(id -g "${LIMA_CIDATA_USER}")
-    ${script_mounts}
 
     exit 0
     '';
