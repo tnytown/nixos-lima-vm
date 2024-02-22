@@ -25,6 +25,6 @@ jobs:
       - name: Upload image
         uses: sigstore/gh-action-sigstore-python@v2.1.1
         with:
-          inputs: result/*
+          inputs: result/*.img
           upload-signing-artifacts: true
           release-signing-artifacts: true
