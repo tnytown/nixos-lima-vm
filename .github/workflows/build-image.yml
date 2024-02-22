@@ -1,4 +1,5 @@
 on:
+  release:
   push:
   workflow_dispatch:
 
@@ -21,7 +22,8 @@ jobs:
         run: |
           nix -L build '.#packages.aarch64-linux.box'
       - name: Upload image
-        uses: actions/upload-artifact@v3
+        uses: sigstore/gh-action-sigstore-python@v2.1.1
         with:
-          name: result
-          path: result/*
+          inputs: result/*
+          upload-signing-artifacts: true
+          release-signing-artifacts: true
