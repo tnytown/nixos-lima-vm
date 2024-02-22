@@ -9,6 +9,7 @@ jobs:
     name: Build
     runs-on: ubuntu-22.04
     permissions:
+      contents: write
       id-token: write
     steps:
       - uses: actions/checkout@v3
@@ -25,11 +26,11 @@ jobs:
         run: |
           NIXPKGS_HASH=$(nix flake metadata nixpkgs --json | jq -r '.locked.rev[0:7]')
           nix -L build '.#packages.aarch64-linux.box'
-          cp result/*.img "nixos-${NIXPKGS_HASH}.img"
+          zstd -i result/*.img -o "nixos-${NIXPKGS_HASH}.img.zst"
       - name: Upload image
         uses: sigstore/gh-action-sigstore-python@v2.1.1
         with:
           inputs: |
-            *.img
+            *.img.zst
           upload-signing-artifacts: true
           release-signing-artifacts: true
