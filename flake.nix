@@ -6,24 +6,17 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-  outputs = { self, nixpkgs, nixos-generators, ... }: {
-    packages.x86_64-linux = {
-      box = nixos-generators.nixosGenerate {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+  outputs = { self, nixpkgs, nixos-generators, ... }: let
+    systems = ["x86_64-linux" "aarch64-linux"];
+  in {
+    packages = nixpkgs.lib.genAttrs systems (system:
+      (nixpkgs.lib.nixosSystem {
+        inherit system;
         modules = [
           ./configuration.nix
+          ./image.nix
         ];
-        format = "raw-efi";
-      };
-    };
-    packages.aarch64-linux = {
-      box = nixos-generators.nixosGenerate {
-        pkgs = nixpkgs.legacyPackages.aarch64-linux;
-        modules = [
-          ./configuration.nix
-        ];
-        format = "raw-efi";
-      };
-    };
+      }).config.system.build
+    );
   };
 }
