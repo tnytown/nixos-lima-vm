@@ -17,7 +17,7 @@ in {
         repartConfig = {
           Type = "esp";
           Format = "vfat";
-          SizeMinBytes = "96M";
+          SizeMinBytes = "200M";
         };
       };
       "root" = {
