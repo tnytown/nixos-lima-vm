@@ -1,10 +1,14 @@
-{ lib, pkgs, config, modulesPath, ... }: let
+{ lib, pkgs, config, modulesPath, inputs, ... }: let
   efiArch = pkgs.stdenv.hostPlatform.efiArch;
 in {
   imports = [ "${modulesPath}/image/repart.nix" ];
 
   image.repart = {
-    name = "image";
+    name = "nixos-lima-${inputs.nixpkgs.shortRev or "unstable"}";
+    compression = {
+      enable = true;
+      algorithm = "zstd";
+    };
     partitions = {
       "esp" = {
         contents = {

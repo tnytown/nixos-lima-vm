@@ -6,12 +6,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-  outputs = { self, nixpkgs, nixos-generators, ... }: let
+  outputs = { self, nixpkgs, nixos-generators, ... } @ inputs: let
     systems = ["x86_64-linux" "aarch64-linux"];
   in {
     packages = nixpkgs.lib.genAttrs systems (system:
       (nixpkgs.lib.nixosSystem {
         inherit system;
+        specialArgs = { inherit inputs; };
+
         modules = [
           ./configuration.nix
           ./image.nix
